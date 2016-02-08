@@ -1,7 +1,14 @@
-Issues and comments:
+Problems that would need to be fixed before moving to production:
 1) Downloads Nginx directly from public repo with no version check.
   -> Should use a private repo (to save bandwidth)
   -> Should pin to a specific version number
 2) No concept of dev/qa/production environments
-3) Nginx config file source and destination are hard-coded
-  -> Should use variables for OS-specific placement
+
+Things to be aware of:
+* Destination for nginx.conf file is templatized per-os, so install will fail
+  if OS is not recognized.  (Nginx docs say the config can go into one of
+  3 locations; this suggests it can change on different OS's so we use a
+  template to figure out correct placement.)
+
+Other comments:
+
