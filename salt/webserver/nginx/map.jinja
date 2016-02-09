@@ -1,9 +1,11 @@
 {% set config = salt['grains.filter_by']({
   'Ubuntu': {
     'config_file_dir': '/etc/nginx',
+    'config_file_group': 'root',
+    'config_file_mode': '0644',
     'config_file_name': 'nginx.conf',
-    'package_name': 'nginx',
     'config_file_owner': 'root',
+    'package_name': 'nginx',
   },
 }, grain='os') %}
 
