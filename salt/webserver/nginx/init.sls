@@ -1,8 +1,12 @@
 {% from 'webserver/nginx/map.jinja' import config with context %}
 
-Install webserver:
+Make sure webserver is installed and running:
   pkg.installed:
-     - name: nginx
+    - name: {{ config.package_name }}
+  service.running:
+    - name: {{ config.package_name }}
+    - enable: True
+    - reload: True
 
 Install main nginx.conf file:
   file.managed:
