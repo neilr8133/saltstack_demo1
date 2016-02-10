@@ -46,8 +46,13 @@ Create symlink to activate Nginx site os_configuration {{ each_site }}:
 Remove Nginx site-available {{ disabled_site }}:
   file.absent:
     - name: {{ os_config.available_site_configurations_dir }}/{{ disabled_site }}
+    - watch_in:
+      - service: {{ os_config.package_name }}
 
 Remove Nginx site-enabled {{ disabled_site }}:
   file.absent:
     - name: {{ os_config.enabled_site_symlinks_dir }}/{{ disabled_site }}
 {% endfor %}
+    - watch_in:
+      - service: {{ os_config.package_name }}
+
