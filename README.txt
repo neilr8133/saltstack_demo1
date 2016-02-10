@@ -9,10 +9,7 @@ Problems that would need to be fixed before moving to production:
    to add our own 'sites-enabled.map' file which lists the enabled sites
    and use Jinja to iterate over them, similar to how has been set up in the
    'auto_symlink_all_sites' branch (commit e9a91c845).
-* There is not currently a mechanism to disable sites and remove their
-   configuration files; however in same way that we iterate over sites_enabled
-   it is trivial to add one that removes both the
-   /sites_available and /sites_enabled components.
+
 
 Things to be aware of:
 ======================
@@ -24,6 +21,7 @@ Things to be aware of:
   it is assumed that in production we would potentially have other webserver
   software (httpd, etc) and minions would explicitly have the server to be
   installed called out rather than having a default.
+
 
 Other comments:
 ===============

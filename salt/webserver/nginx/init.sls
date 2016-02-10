@@ -20,7 +20,7 @@ Install main nginx_conf file:
       - service: {{ os_config.package_name }}
 
 {% for each_site in salt['pillar.get']('nginx:lookup:sites_enabled') %}
-Copy Nginx site os_configuration {{ each_site }}:
+Copy Nginx site-available {{ each_site }}:
   file.managed:
     - group: {{ os_config.file_group }}
     - mode: {{ os_config.file_mode }}
@@ -40,4 +40,14 @@ Create symlink to activate Nginx site os_configuration {{ each_site }}:
     - user: {{ os_config.file_owner }}
     - watch_in:
       - service: {{ os_config.package_name }}
+{% endfor %}
+
+{% for disabled_site in salt['pillar.get']('nginx:lookup:sites_disabled') %}
+Remove Nginx site-available {{ disabled_site }}:
+  file.absent:
+    - name: {{ os_config.available_site_configurations_dir }}/{{ disabled_site }}
+
+Remove Nginx site-enabled {{ disabled_site }}:
+  file.absent:
+    - name: {{ os_config.enabled_site_symlinks_dir }}/{{ disabled_site }}
 {% endfor %}
