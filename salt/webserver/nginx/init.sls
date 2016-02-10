@@ -26,6 +26,7 @@ Copy Nginx site-available {{ each_site }}:
     - mode: {{ os_config.file_mode }}
     - name: {{ os_config.available_site_configurations_dir }}/{{ each_site }}
     - source: salt://webserver/nginx/config/sites-available/{{ each_site }}
+    - template: jinja
     - user: {{ os_config.file_owner }}
     - watch_in:
       - service: {{ os_config.package_name }}
