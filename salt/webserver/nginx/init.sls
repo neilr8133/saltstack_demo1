@@ -52,7 +52,7 @@ Remove Nginx site-available {{ disabled_site }}:
 Remove Nginx site-enabled {{ disabled_site }}:
   file.absent:
     - name: {{ os_config.enabled_site_symlinks_dir }}/{{ disabled_site }}
-{% endfor %}
     - watch_in:
       - service: {{ os_config.package_name }}
+{% endfor %}
 
