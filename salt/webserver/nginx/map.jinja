@@ -1,6 +1,7 @@
 {% set os_config = salt['grains.filter_by']({
   'Ubuntu': {
     'available_site_configurations_dir': '/etc/nginx/sites-available',
+    'dir_mode': '0755', 
     'file_dir': '/etc/nginx',
     'file_group': 'www-data',
     'file_mode': '0644',
