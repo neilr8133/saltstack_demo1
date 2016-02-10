@@ -19,7 +19,7 @@ Install main nginx_conf file:
     - watch_in:
       - service: {{ os_config.package_name }}
 
-{% for each_site in sites_enabled %}
+{% for each_site in salt['pillar.get']('nginx:lookup:sites_enabled') %}
 Copy Nginx site os_configuration {{ each_site }}:
   file.managed:
     - group: {{ os_config.file_group }}
