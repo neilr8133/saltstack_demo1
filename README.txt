@@ -21,6 +21,9 @@ Things to be aware of:
   it is assumed that in production we would potentially have other webserver
   software (httpd, etc) and minions would explicitly have the server to be
   installed called out rather than having a default.
+* By editing /srv/pillar/webserver/nginx.sls we can remove previously-deployed
+  server configurations by editing nginx:lookup:sites_disabled (currently
+  set to an empty list); syntax is the same as for nginx:lookup:sites_enabled.
 
 
 Other comments:
