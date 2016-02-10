@@ -51,3 +51,15 @@ From https://docs.saltstack.com/en/latest/topics/installation/rhel.html:
 * Install the salt-minion:
 
     # yum install salt-minion
+
+## The demo code
+
+We will use a 'headless minion' configuration:
+
+* Install to `/srv` using your preferred mechanism (Git, scp, etc).
+* Refresh the pillar: `$ sudo salt-call --local saltutil.refresh_pillar
+* Review the state changes using `$ sudo salt-call local state.apply test=True`
+  (*NOTE*: This requires the OS-level configuration parameters be set
+  in `/srv/salt/webserver/nginx/map.jinja` or Salt will fail!)
+* Apply the configuration using `$ sudo salt-call --local state.apply` 
+
