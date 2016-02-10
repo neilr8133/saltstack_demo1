@@ -1,5 +1,4 @@
 {% from 'webserver/nginx/map.jinja' import os_config with context %}
-{% from 'webserver/nginx/map.jinja' import sites_enabled %}
 
 Make sure webserver is installed and running:
   pkg.installed:
