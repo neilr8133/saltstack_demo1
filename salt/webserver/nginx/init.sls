@@ -18,7 +18,7 @@ Install main nginx_conf file:
     - watch_in:
       - service: {{ os_config.package_name }}
 
-{% for each_site in salt['pillar.get']('nginx:lookup:sites_enabled') %}
+{% for each_site in salt['pillar.get']('nginx:sites_enabled') %}
 Copy Nginx site-available {{ each_site }}:
   file.managed:
     - group: {{ os_config.file_group }}
@@ -48,12 +48,12 @@ Copy Nginx site content for {{ each_site }}:
     - file_mode: {{ os_config.file_mode }}
     - group: {{ os_config.file_group }}
     - include_empty: True
-    - name: {{ salt['pillar.get']('nginx:lookup:config:site_content_base_dir') }}/{{ each_site }}
+    - name: {{ salt['pillar.get']('nginx:server:site_content_base_dir') }}/{{ each_site }}
     - source: salt://webserver/nginx/sites/{{ each_site }}
     - user: {{ os_config.file_owner }}
 {% endfor %}
 
-{% for disabled_site in salt['pillar.get']('nginx:lookup:sites_disabled') %}
+{% for disabled_site in salt['pillar.get']('nginx:sites_disabled') %}
 Remove Nginx site-available {{ disabled_site }}:
   file.absent:
     - name: {{ os_config.available_site_configurations_dir }}/{{ disabled_site }}
@@ -68,7 +68,7 @@ Remove Nginx site-enabled {{ disabled_site }}:
 
 Remove Nginx site content for {{ disabled_site }}:
   file.absent:
-    - name: {{ salt['pillar.get']('nginx:lookup:config:site_content_base_dir') }}/{{ disabled_site }}
+    - name: {{ salt['pillar.get']('nginx:server:site_content_base_dir') }}/{{ disabled_site }}
 {% endfor %}
 
 
