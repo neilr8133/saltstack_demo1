@@ -12,3 +12,6 @@ Things to be aware of:
 
 Other comments:
 
+
+Oldest supported version (and function that requires it):
+  salt.modules.file.readdir - version 2014.1.0
