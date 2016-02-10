@@ -11,7 +11,7 @@ Make sure webserver is installed and running:
 Install main nginx_conf file:
   file.managed:
     - name: {{ os_config.file_dir }}/{{ os_config.file_name }}
-    - source: salt://webserver/nginx/config/{{ os_config.file_name }}
+    - source: {{ salt['pillar.get']('nginx:source_base_dir') }}/config/{{ os_config.file_name }}
     - user: {{ os_config.file_owner }}
     - group: {{ os_config.file_group }}
     - mode: {{ os_config.file_mode }}
@@ -24,7 +24,7 @@ Copy Nginx site-available {{ each_site }}:
     - group: {{ os_config.file_group }}
     - mode: {{ os_config.file_mode }}
     - name: {{ os_config.available_site_configurations_dir }}/{{ each_site }}
-    - source: salt://webserver/nginx/config/sites-available/{{ each_site }}
+    - source: {{ salt['pillar.get']('nginx:source_base_dir') }}/config/sites-available/{{ each_site }}
     - template: jinja
     - user: {{ os_config.file_owner }}
     - watch_in:
@@ -49,7 +49,7 @@ Copy Nginx site content for {{ each_site }}:
     - group: {{ os_config.file_group }}
     - include_empty: True
     - name: {{ salt['pillar.get']('nginx:server:site_content_base_dir') }}/{{ each_site }}
-    - source: salt://webserver/nginx/sites/{{ each_site }}
+    - source: {{ salt['pillar.get']('nginx:source_base_dir') }}/sites/{{ each_site }}
     - user: {{ os_config.file_owner }}
 {% endfor %}
 
