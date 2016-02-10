@@ -1,11 +1,11 @@
-{% set config = salt['grains.filter_by']({
+{% set os_config = salt['grains.filter_by']({
   'Ubuntu': {
     'available_site_configurations_dir': '/etc/nginx/sites-available',
-    'config_file_dir': '/etc/nginx',
-    'config_file_group': 'root',
-    'config_file_mode': '0644',
-    'config_file_name': 'nginx.conf',
-    'config_file_owner': 'root',
+    'file_dir': '/etc/nginx',
+    'file_group': 'root',
+    'file_mode': '0644',
+    'file_name': 'nginx.conf',
+    'file_owner': 'root',
     'enabled_site_symlinks_dir': '/etc/nginx/sites-enabled',
     'package_name': 'nginx',
   },

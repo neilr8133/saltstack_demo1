@@ -1,43 +1,43 @@
-{% from 'webserver/nginx/map.jinja' import config with context %}
+{% from 'webserver/nginx/map.jinja' import os_config with context %}
 {% from 'webserver/nginx/map.jinja' import sites_enabled %}
 
 Make sure webserver is installed and running:
   pkg.installed:
-    - name: {{ config.package_name }}
+    - name: {{ os_config.package_name }}
   service.running:
-    - name: {{ config.package_name }}
+    - name: {{ os_config.package_name }}
     - enable: True
     - reload: True
 
 Install main nginx_conf file:
   file.managed:
-    - name: {{ config.config_file_dir }}/{{ config.config_file_name }}
-    - source: salt://webserver/nginx/config/{{ config.config_file_name }}
-    - user: {{ config.config_file_owner }}
-    - group: {{ config.config_file_group }}
-    - mode: {{ config.config_file_mode }}
+    - name: {{ os_config.file_dir }}/{{ os_config.file_name }}
+    - source: salt://webserver/nginx/config/{{ os_config.file_name }}
+    - user: {{ os_config.file_owner }}
+    - group: {{ os_config.file_group }}
+    - mode: {{ os_config.file_mode }}
     - watch_in:
-      - service: {{ config.package_name }}
+      - service: {{ os_config.package_name }}
 
 {% for each_site in sites_enabled %}
-Copy Nginx site configuration {{ each_site }}:
+Copy Nginx site os_configuration {{ each_site }}:
   file.managed:
-    - group: {{ config.config_file_group }}
-    - mode: {{ config.config_file_mode }}
-    - name: {{ config.available_site_configurations_dir }}/{{ each_site }}
+    - group: {{ os_config.file_group }}
+    - mode: {{ os_config.file_mode }}
+    - name: {{ os_config.available_site_configurations_dir }}/{{ each_site }}
     - source: salt://webserver/nginx/config/sites-available/{{ each_site }}
-    - user: {{ config.config_file_owner }}
+    - user: {{ os_config.file_owner }}
     - watch_in:
-      - service: {{ config.package_name }}
+      - service: {{ os_config.package_name }}
     
-Create symlink to activate Nginx site configuration {{ each_site }}:
+Create symlink to activate Nginx site os_configuration {{ each_site }}:
   file.symlink:
-    - file_mode: {{ config.config_file_mode }}
-    - group: {{ config.config_file_group }}
-    - mode: {{ config.config_file_mode }}
-    - name: {{ config.enabled_site_symlinks_dir }}/{{ each_site }}
-    - target: {{ config.available_site_configurations_dir }}/{{ each_site }}
-    - user: {{ config.config_file_owner }}
+    - file_mode: {{ os_config.file_mode }}
+    - group: {{ os_config.file_group }}
+    - mode: {{ os_config.file_mode }}
+    - name: {{ os_config.enabled_site_symlinks_dir }}/{{ each_site }}
+    - target: {{ os_config.available_site_configurations_dir }}/{{ each_site }}
+    - user: {{ os_config.file_owner }}
     - watch_in:
-      - service: {{ config.package_name }}
+      - service: {{ os_config.package_name }}
 {% endfor %}
