@@ -1,5 +1,5 @@
 nginx:
-  source_base_dir: 'salt://webserver/nginx'
+  source_base_dir: 'webserver/nginx'
   sites_enabled:
     - default
   sites_disabled: []
