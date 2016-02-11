@@ -11,6 +11,10 @@
 * Turns off SELinux
   During testing, could not get Nginx to work under SELinux (even manually),
   would need more time to understand the problem.
+* Flushes/replaces the configured firewall
+  -> Should append to the existing firewall rules instead.
+     (CentOS was found to have an extensive set of firewall rules that, among
+      other things, blocked access to :8888.)
 
 
 # Things to be aware of

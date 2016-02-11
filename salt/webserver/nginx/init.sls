@@ -127,4 +127,19 @@ Remove Nginx site content for {{ disabled_site }}:
     - name: {{ salt['pillar.get']('nginx:server:site_content_base_dir') }}/{{ disabled_site }}
 {% endfor %}
 
+Flush iptables:
+  iptables.flush:
+    - name: ACCEPT
+
+Configure iptables to accept web requests:
+  iptables.append:
+    - chain: INPUT
+    - comment: "Allow HTTP"
+    - connstate: NEW
+    - dport: {{ salt['pillar.get']('nginx:server:listen_port') }}
+    - jump: ACCEPT
+    - match: state
+    - proto: tcp
+    - save: True
+    - table: filter
 
