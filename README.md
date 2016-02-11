@@ -57,7 +57,25 @@ From https://docs.saltstack.com/en/latest/topics/installation/rhel.html:
 		# yum update
 		# yum install salt-minion
 
-## The demo code
+## Ubuntu 14.x
+
+Modified from https://docs.saltstack.com/en/latest/topics/installation/ubuntu.html:
+
+* Import the package key:
+
+		$ wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+
+* Append the following to `/etc/apt/sources.list`:
+
+		deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main
+
+* Refresh the package-manager cache and install the minion:
+
+		$ sudo apt-get update
+		$ sudo apt-get install salt-minion
+
+
+## Install the demo code
 
 We will use a 'headless minion' configuration:
 
@@ -67,4 +85,3 @@ We will use a 'headless minion' configuration:
   (*NOTE*: This requires the OS-level configuration parameters be set
   in `/srv/salt/webserver/nginx/map.jinja` or Salt will fail!)
 * Apply the configuration using `$ sudo salt-call --local state.apply` 
-
