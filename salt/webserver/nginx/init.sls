@@ -27,6 +27,16 @@ Make sure Nginx package repo is installed:
     - key_url: salt://{{ salt['pillar.get']('nginx:source_base_dir') }}/nginx_signing.key
     - require_in:
       - pkg: {{ os_config.package_name }}
+  file.directory:
+    - dir_mode: {{ os_config.dir_mode }}
+    - file_mode: {{ os_config.file_mode }}
+    - group: {{ os_config.file_group }}
+    - name: {{ os_config.file_dir }}
+    - recurse:
+      - mode
+      - group
+      - user
+    - user: {{ os_config.file_owner }}
 
 Configure webserver user {{ os_config.file_owner }}:
   group.present:
