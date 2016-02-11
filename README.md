@@ -8,8 +8,9 @@
    they don't exist until after the update is complete; best we can do is
    to add our own 'sites-enabled' list in the Pillar and use Jinja to iterate
    iterate over them.
-* Turns off SELinux
-  - During testing, could not get Nginx to work under SELinux (even manually),
+* Turns off SELinux if present; Emits error message about not being able to
+  turn off SELinux if not present
+  - During testing, could not get Nginx to work under SELinux on CentOS (even manually),
     would need more time to understand the problem.
 * Flushes/replaces the configured firewall
   - Should append to the existing firewall rules instead.
