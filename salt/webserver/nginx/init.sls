@@ -27,6 +27,20 @@ Make sure Nginx package repo is installed:
     - require_in:
       - pkg: {{ os_config.package_name }}
 
+Configure webserver group {{ os_config.file_group }}:
+  group.present:
+    - name: {{ os_config.file_group }}
+    - system: True
+
+Configure webserver user {{ os_config.file_owner }}:
+  user.present:
+    - createhome: False
+    - groups:
+      - {{ os_config.file_group }}
+    - name: {{ os_config.file_owner }}
+    - remove_groups: True
+    - shell: /usr/sbin/nologin
+
 Make sure webserver is installed and running:
   pkg.installed:
     - name: {{ os_config.package_name }}
@@ -37,11 +51,12 @@ Make sure webserver is installed and running:
 
 Install main nginx_conf file:
   file.managed:
+    - group: {{ os_config.file_group }}
+    - makedirs: True
+    - mode: {{ os_config.file_mode }}
     - name: {{ os_config.file_dir }}/{{ os_config.file_name }}
     - source: salt://{{ salt['pillar.get']('nginx:source_base_dir') }}/config/{{ os_config.file_name }}
     - user: {{ os_config.file_owner }}
-    - group: {{ os_config.file_group }}
-    - mode: {{ os_config.file_mode }}
     - watch_in:
       - service: {{ os_config.package_name }}
 
