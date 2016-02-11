@@ -8,6 +8,9 @@
    they don't exist until after the update is complete; best we can do is
    to add our own 'sites-enabled' list in the Pillar and use Jinja to iterate
    iterate over them.
+* Turns off SELinux
+  During testing, could not get Nginx to work under SELinux (even manually),
+  would need more time to understand the problem.
 
 
 # Things to be aware of

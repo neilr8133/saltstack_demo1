@@ -1,7 +1,8 @@
 {% from 'webserver/nginx/map.jinja' import os_config with context %}
 
-#include:
-#  - .prerequisites.{{ salt['grains.get']('os') }}
+# Disable SELinux (Bad, bad, bad!!)
+permissive:
+  selinux.mode
 
 Make sure Nginx package repo is installed:
   pkgrepo.managed:
